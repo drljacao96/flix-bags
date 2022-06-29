@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_package = "com.drbrosdev.flix_bags";
+option java_multiple_files = true;
+
+message Baggage {
+  string baggage_code = 1;
+}
+
+message Ticket {
+  string ticket_code = 1;
+  repeated Baggage baggage_items = 2;
+}
+
+message Token {
+  string token = 1;
+}

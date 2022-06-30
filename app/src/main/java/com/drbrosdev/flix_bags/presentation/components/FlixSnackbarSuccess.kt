@@ -34,7 +34,7 @@ fun FlixSnackbarSuccess(
             Card(
                 shape = RoundedCornerShape(12.dp),
                 border = BorderStroke(2.dp, MaterialTheme.colors.surface),
-                backgroundColor = Color(0xFFA7CEAA),
+                backgroundColor = Color.Green,
                 modifier = Modifier
                     .padding(16.dp)
                     .wrapContentSize()

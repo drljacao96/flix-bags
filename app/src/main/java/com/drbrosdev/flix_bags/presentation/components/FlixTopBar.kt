@@ -29,7 +29,6 @@ import compose.icons.feathericons.Info
 fun FlixTopBar(
     modifier: Modifier = Modifier,
     text: String,
-    isLoading: Boolean = true,
     onBack: (() -> Unit)? = null,
     onInfo: () -> Unit = {}
 ) {
@@ -66,9 +65,10 @@ fun FlixTopBar(
                 fontWeight = FontWeight.SemiBold
             )
 
-            IconButton(onClick = { onInfo() }, modifier = Modifier
-                .size(48.dp)
-                .padding(top = 6.dp)
+            IconButton(
+                onClick = { onInfo() }, modifier = Modifier
+                    .size(48.dp)
+                    .padding(top = 6.dp)
             ) {
                 Icon(
                     imageVector = FeatherIcons.Info,
@@ -79,19 +79,6 @@ fun FlixTopBar(
             }
         }
 
-        if (isLoading) {
-            LinearProgressIndicator(
-                modifier = Modifier
-                    .height(10.dp)
-                    .fillMaxWidth()
-                    .padding(top = 2.dp)
-                    .clip(RoundedCornerShape(percent = 50)),
-                color = MaterialTheme.colors.onBackground
-            )
-        } else {
-            Spacer(modifier = Modifier.height(14.dp))
-        }
-            
     }
 }
 

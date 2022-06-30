@@ -28,6 +28,7 @@ import com.drbrosdev.flix_bags.R
 import com.drbrosdev.flix_bags.presentation.components.FlixAddBaggageButton
 import com.drbrosdev.flix_bags.presentation.components.FlixBaggageStatus
 import com.drbrosdev.flix_bags.presentation.components.FlixCodeCard
+import com.drbrosdev.flix_bags.presentation.components.FlixCompareButton
 import com.drbrosdev.flix_bags.presentation.components.FlixHomeScreenInfoText
 import com.drbrosdev.flix_bags.presentation.components.FlixSnackbarError
 import com.drbrosdev.flix_bags.presentation.components.FlixSnackbarSuccess
@@ -54,7 +55,18 @@ class HomeFragment : Fragment() {
     private val scanCodeIntent = registerForActivityResult(ScanCustomCode()) {
         when (it) {
             is QRResult.QRSuccess -> {
-//                viewModel.submitTicketCode(it.content.rawValue)
+                viewModel.submitCustomerBagCode(it.content.rawValue)
+            }
+            is QRResult.QRUserCanceled -> {}
+            is QRResult.QRMissingPermission -> {}
+            is QRResult.QRError -> {}
+        }
+    }
+
+    private val scanCodeIntent2 = registerForActivityResult(ScanCustomCode()) {
+        when (it) {
+            is QRResult.QRSuccess -> {
+                viewModel.compareBags(it.content.rawValue)
             }
             is QRResult.QRUserCanceled -> {}
             is QRResult.QRMissingPermission -> {}
@@ -113,9 +125,15 @@ class HomeFragment : Fragment() {
                             viewModel.events.collectLatest {
                                 when (it) {
                                     HomeEvents.CodeMatch -> {
-
+                                        snackbarHostStateSuccess.showSnackbar("Codes Match!")
                                     }
                                     HomeEvents.CodeNotMatch -> {
+                                        snackbarHostStateError.showSnackbar("Codes do not match!")
+                                    }
+                                    HomeEvents.CustomerBagCodeScanned -> {
+
+                                    }
+                                    HomeEvents.CodesScanned -> {
 
                                     }
                                 }
@@ -123,7 +141,7 @@ class HomeFragment : Fragment() {
                         }
 
                         FlixTopBar(
-                            text = "Flix Tickets",
+                            text = "Flix Bags",
                             modifier = Modifier
                                 .constrainAs(topBar) {
                                     top.linkTo(parent.top)
@@ -160,16 +178,17 @@ class HomeFragment : Fragment() {
                             }
                         )
 
-                        FlixSubmitButton(
-                            text = "Submit Ticket",
+                        FlixCompareButton(
+                            text = "Compare Bags",
                             modifier = Modifier.constrainAs(submitButton) {
                                 bottom.linkTo(parent.bottom, 8.dp)
                                 start.linkTo(startGuideline)
                                 end.linkTo(endGuideline)
                                 width = Dimension.fillToConstraints
-                            }
+                            },
+                            isCustomerBagScanned = state.isCustomerBagCodeScanned
                         ) {
-//                            viewModel.clearTicketData()
+                            scanCodeIntent2.launch(scannerConfig)
                         }
 
                         FlixSnackbarError(

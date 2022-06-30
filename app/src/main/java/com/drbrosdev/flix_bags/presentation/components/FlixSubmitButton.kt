@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -42,4 +43,40 @@ fun FlixSubmitButton(
             modifier = Modifier.padding(vertical = 16.dp),
         )
     }
+}
+
+@Composable
+fun FlixCompareButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    useFinishAction: Boolean = false,
+    isCustomerBagScanned: Boolean = false,
+    onClick: () -> Unit
+) {
+    val cornerShape = RoundedCornerShape(20.dp)
+
+    val buttonColor = if (useFinishAction) Color.Black
+    else MaterialTheme.colors.secondaryVariant
+
+    Box(
+        modifier = Modifier
+            .clip(cornerShape)
+            .alpha(setVisibility(isCustomerBagScanned))
+            .background(color = buttonColor)
+            .clickable { onClick() }
+            .then(modifier),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = text.uppercase(Locale.ROOT),
+            style = MaterialTheme.typography.body1.copy(color = Color.White, fontWeight = FontWeight.Bold),
+            modifier = Modifier.padding(vertical = 16.dp),
+        )
+    }
+}
+
+
+fun setVisibility(customerBagScanned: Boolean): Float {
+    return if(customerBagScanned) 1f
+    else 0f
 }

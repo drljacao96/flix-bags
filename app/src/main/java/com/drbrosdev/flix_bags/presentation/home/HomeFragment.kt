@@ -125,10 +125,10 @@ class HomeFragment : Fragment() {
                             viewModel.events.collectLatest {
                                 when (it) {
                                     HomeEvents.CodeMatch -> {
-                                        snackbarHostStateSuccess.showSnackbar("Codes Match!")
+                                        snackbarHostStateSuccess.showSnackbar("Kodovi su identicni!")
                                     }
                                     HomeEvents.CodeNotMatch -> {
-                                        snackbarHostStateError.showSnackbar("Codes do not match!")
+                                        snackbarHostStateError.showSnackbar("Kodovi nisu identicni!")
                                     }
                                     HomeEvents.CustomerBagCodeScanned -> {
 
@@ -141,7 +141,7 @@ class HomeFragment : Fragment() {
                         }
 
                         FlixTopBar(
-                            text = "Flix Bags",
+                            text = "Flix Torbe",
                             modifier = Modifier
                                 .constrainAs(topBar) {
                                     top.linkTo(parent.top)
@@ -179,7 +179,7 @@ class HomeFragment : Fragment() {
                         )
 
                         FlixCompareButton(
-                            text = "Compare Bags",
+                            text = "Uporedi torbe",
                             modifier = Modifier.constrainAs(submitButton) {
                                 bottom.linkTo(parent.bottom, 8.dp)
                                 start.linkTo(startGuideline)

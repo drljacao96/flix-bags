@@ -58,7 +58,7 @@ fun FlixCodeCard(
         ) {
             if (useTopText)
                 Text(
-                    text = "Current Ticket",
+                    text = "QR Kod",
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colors.onSurface
@@ -80,7 +80,7 @@ fun FlixCodeCard(
                 if (useBottomText) {
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
-                        text = "Code content: $codeContent",
+                        text = "Kod: $codeContent",
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colors.onSurface
@@ -92,8 +92,8 @@ fun FlixCodeCard(
 
             if (useAction)
                 FlixScanCodeButton(
-                    actionText = "Scan Ticket",
-                    supportText = "Press to scan your ticket QR code!",
+                    actionText = "Skenirajte kod",
+                    supportText = "Pritisnite dugme da skenirate QR kod!",
                     modifier = Modifier.padding(bottom = 4.dp)
                 ) { onScanTicket?.invoke() }
         }
@@ -118,7 +118,7 @@ private fun CodeCardPlaceholder(
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = "Press Scan Ticket to view your ticket code!",
+            text = "Pritisnite Skeniraj kod da vidite vas kod!",
             color = MaterialTheme.colors.onSurface,
             textAlign = TextAlign.Center
         )

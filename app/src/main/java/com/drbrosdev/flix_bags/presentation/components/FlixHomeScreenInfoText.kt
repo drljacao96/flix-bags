@@ -13,8 +13,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun FlixHomeScreenInfoText(
     modifier: Modifier = Modifier,
-    headerText: String = "Instructions or Ticket info",
-    text: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    headerText: String = "Instrukcije i Informacije",
+    text: String = "Tekst za instrukcije informacije i kontakt."
 ) {
     Column(
         modifier = Modifier

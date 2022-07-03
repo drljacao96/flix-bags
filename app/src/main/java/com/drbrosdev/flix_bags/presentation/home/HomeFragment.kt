@@ -1,6 +1,10 @@
 package com.drbrosdev.flix_bags.presentation.home
 
+import android.content.Context
+import android.media.MediaPlayer
+import android.media.RingtoneManager
 import android.os.Bundle
+import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,12 +39,15 @@ import com.drbrosdev.flix_bags.presentation.components.FlixSnackbarSuccess
 import com.drbrosdev.flix_bags.presentation.components.FlixSubmitButton
 import com.drbrosdev.flix_bags.presentation.components.FlixTopBar
 import com.drbrosdev.flix_bags.presentation.components.Screen
+import com.drbrosdev.flix_bags.util.vibrate
 import com.google.android.material.transition.MaterialSharedAxis
 import io.github.g00fy2.quickie.QRResult
 import io.github.g00fy2.quickie.ScanCustomCode
 import io.github.g00fy2.quickie.config.BarcodeFormat
 import io.github.g00fy2.quickie.config.ScannerConfig
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -81,6 +88,8 @@ class HomeFragment : Fragment() {
         setHapticSuccessFeedback(true)
     }
 
+    private var mediaPlayer: MediaPlayer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -92,11 +101,20 @@ class HomeFragment : Fragment() {
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        mediaPlayer?.release()
+        mediaPlayer = null
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val alertSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        mediaPlayer = MediaPlayer.create(requireContext(), alertSound)
+
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             transitionName = "home_fragment"
@@ -128,7 +146,14 @@ class HomeFragment : Fragment() {
                                         snackbarHostStateSuccess.showSnackbar("Kodovi su identicni!")
                                     }
                                     HomeEvents.CodeNotMatch -> {
-                                        snackbarHostStateError.showSnackbar("Kodovi nisu identicni!")
+                                        launch {
+                                            snackbarHostStateError.showSnackbar("Kodovi nisu identicni!")
+                                        }
+                                        launch {
+                                            mediaPlayer?.start()
+                                            delay(200)
+                                            requireView().vibrate()
+                                        }
                                     }
                                     HomeEvents.CustomerBagCodeScanned -> {
 

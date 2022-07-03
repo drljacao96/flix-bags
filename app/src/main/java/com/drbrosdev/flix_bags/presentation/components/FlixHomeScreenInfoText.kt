@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -22,7 +23,8 @@ fun FlixHomeScreenInfoText(
     ) {
         Text(
             text = headerText,
-            style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onSurface)
+            style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onSurface),
+            textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(text = text, style = MaterialTheme.typography.caption.copy(color = Color.Gray))

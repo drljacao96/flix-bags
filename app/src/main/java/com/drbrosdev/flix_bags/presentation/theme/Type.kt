@@ -21,58 +21,57 @@ val Typography = Typography(
     h1 = TextStyle(
         fontFamily = font,
         fontWeight = FontWeight.Normal,
-        fontSize = 48.sp
+        fontSize = 50.sp
     ),
     h2 = TextStyle(
         fontFamily = font,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 34.sp,
-        letterSpacing = (-2).sp
+        fontSize = 30.sp,
     ),
     h3 = TextStyle(
         fontFamily = font,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 24.sp
+        fontSize = 26.sp
     ),
     h4 = TextStyle(
         fontFamily = font,
         fontWeight = FontWeight.Bold,
-        fontSize = 20.sp
+        fontSize = 22.sp
     ),
     body1 = TextStyle(
         fontFamily = font,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
+        fontSize = 18.sp
     ),
     body2 = TextStyle(
         fontFamily = font,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp
+        fontSize = 16.sp
     ),
     caption = TextStyle(
         fontFamily = font,
         fontWeight = FontWeight.Light,
-        fontSize = 12.sp
+        fontSize = 14.sp
     ),
     overline = TextStyle(
         fontFamily = font,
         fontWeight = FontWeight.Light,
-        fontSize = 10.sp
+        fontSize = 12.sp
     ),
     subtitle1 = TextStyle(
         fontFamily = font,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
+        fontSize = 18.sp
     ),
     subtitle2 = TextStyle(
         fontFamily = font,
         fontWeight = FontWeight.Bold,
-        fontSize = 14.sp
+        fontSize = 16.sp
     ),
     button = TextStyle(
         fontFamily = font,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 16.sp,
+        fontSize = 18.sp,
         fontFeatureSettings = "c2sc, smcp" //some voodoo magic shit
     )
 )

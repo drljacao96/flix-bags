@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -61,7 +62,7 @@ fun FlixTopBar(
 
             Text(
                 text = text,
-                fontSize = 28.sp,
+                style = MaterialTheme.typography.h2,
                 fontWeight = FontWeight.SemiBold
             )
 

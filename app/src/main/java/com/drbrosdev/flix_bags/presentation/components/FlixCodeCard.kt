@@ -37,10 +37,15 @@ fun FlixCodeCard(
     onScanTicket: (() -> Unit)? = null
 ) {
     val backgroundColor = MaterialTheme.colors.secondary
+    val codeColor = MaterialTheme.colors.secondaryVariant
 
     val isCodeEmpty = codeContent.isBlank()
 
-    val codeImage = QRGenUtils.createCodeBitmap(codeContent, backgroundColor.toArgb())
+    val codeImage = QRGenUtils.createCodeBitmap(
+        codeContent = codeContent,
+        backgroundColor = backgroundColor.toArgb(),
+        codeColor = codeColor.toArgb()
+    )
 
     val elevation by animateDpAsState(targetValue = if (isCodeEmpty) 0.dp else 4.dp)
 

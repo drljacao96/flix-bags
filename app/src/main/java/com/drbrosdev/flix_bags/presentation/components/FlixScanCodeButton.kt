@@ -78,7 +78,8 @@ fun FlixScanCodeButton(
                 )
                 Text(
                     text = supportText,
-                    style = MaterialTheme.typography.caption.copy(color = Color.Gray)
+                    style = MaterialTheme.typography.caption.copy(color = Color.Gray),
+                    modifier = Modifier.padding(end = 8.dp)
                 )
             }
             Image(

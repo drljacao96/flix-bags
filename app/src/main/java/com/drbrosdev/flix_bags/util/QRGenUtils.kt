@@ -7,13 +7,13 @@ import net.glxn.qrgen.android.QRCode
 
 object QRGenUtils {
 
-    fun createCodeBitmap(codeContent: String, backgroundColor: Int): Bitmap {
+    fun createCodeBitmap(codeContent: String, backgroundColor: Int, codeColor: Int): Bitmap {
         return try {
             val byteArray by lazy {
                 QRCode
                     .from(codeContent)
                     .withSize(250, 250)
-                    .withColor(0xFF246B28.toInt(), backgroundColor)
+                    .withColor(codeColor, backgroundColor)
                     .stream()
                     .toByteArray()
             }

@@ -1,65 +1,73 @@
 package com.drbrosdev.flix_bags.presentation.home
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(
+    private val stateHandle: SavedStateHandle
+) : ViewModel() {
 
     private val _events = Channel<HomeEvents>()
     val events = _events.receiveAsFlow()
 
-    private val customerBagCode = MutableStateFlow("")
-    private val bagCode = MutableStateFlow("")
-    private val isCustomerBagCodeScanned = MutableStateFlow(false)
-    private val codesMatch = MutableStateFlow(false)
+    private val customerBagCode = stateHandle.getStateFlow(CUSTOMER_CODE, "")
+    private val bagCode = stateHandle.getStateFlow(BAG_CODE, "")
+    private val comparisonState = MutableStateFlow(CodeComparisonState.IDLE)
 
     val state = combine(
         customerBagCode,
         bagCode,
-        isCustomerBagCodeScanned,
-        codesMatch
-    ) { getCustomerBagCode, getBagCode, isCustomerBagCodeScanned, doCodesMatch ->
+        comparisonState
+    ) { getCustomerBagCode, getBagCode, getComparisonState ->
         HomeUiState(
             customerBagCode = getCustomerBagCode,
             bagCode = getBagCode,
-            isCustomerBagCodeScanned = isCustomerBagCodeScanned,
-            codesMatch = doCodesMatch
+            comparisonState = getComparisonState
         )
     }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), HomeUiState())
 
-    fun submitCustomerBagCode(customerBagRawValue: String) {
-        isCustomerBagCodeScanned.update {
-            true
+    fun submitCustomerBagCode(bagRawValue: String) {
+        if(customerBagCode.value.isNotBlank() and bagCode.value.isNotBlank()) {
+            comparisonState.update { CodeComparisonState.IDLE }
+            stateHandle[CUSTOMER_CODE] = ""
+            stateHandle[BAG_CODE] = ""
         }
-        customerBagCode.update {
-            customerBagRawValue
+
+        if (customerBagCode.value.isBlank()) {
+            stateHandle[CUSTOMER_CODE] = bagRawValue
+            compareBags(customerBagCode.value, bagCode.value)
+            return
+        }
+
+        if(bagCode.value.isBlank()) {
+            stateHandle[BAG_CODE] = bagRawValue
+            compareBags(customerBagCode.value, bagCode.value)
+            return
         }
     }
 
-    fun compareBags(bagRawValue: String) {
-        viewModelScope.launch {
+    private fun compareBags(firstCode: String, secondCode: String) {
+        if(firstCode.isBlank() or secondCode.isBlank())
+            return
 
-            if(bagRawValue == customerBagCode.value) {
+        viewModelScope.launch {
+            if (firstCode == secondCode) {
                 _events.send(HomeEvents.CodeMatch)
+                comparisonState.update { CodeComparisonState.TRUE }
             } else {
                 _events.send(HomeEvents.CodeNotMatch)
-            }
-
-            isCustomerBagCodeScanned.update {
-                false
-            }
-
-            customerBagCode.update {
-                ""
+                comparisonState.update { CodeComparisonState.FALSE }
             }
         }
+    }
+
+    companion object {
+        private const val CUSTOMER_CODE = "customer_code"
+        private const val BAG_CODE = "bag_code"
     }
 }

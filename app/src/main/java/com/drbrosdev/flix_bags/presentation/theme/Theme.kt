@@ -10,19 +10,23 @@ import androidx.compose.ui.graphics.Color
 private val DarkColorPalette = darkColors(
     primary = Purple200,
     primaryVariant = Purple700,
-    secondary = FlixGreenDark,
-    background = FlixGreenDarker,
+    secondary = FlixAmberDark,
+    background = FlixAmberDarker,
     secondaryVariant = FlixButton,
-    onBackground = FlixGreenLight
+    onBackground = FlixAmberLight,
+    error = FlixErrorDark,
+    onError = FlixSuccessDark
 )
 
 private val LightColorPalette = lightColors(
     primary = Purple500,
     primaryVariant = Purple700,
     secondary = Color.White,
-    background = FlixGreenLight,
+    background = FlixAmberLight,
     secondaryVariant = FlixButton,
-    onBackground = FlixGreenDarker
+    onBackground = FlixAmberDarker,
+    error = FlixErrorLight,
+    onError = FlixSuccessLight
     /* Other default colors to override
     surface = Color.White,
     onPrimary = Color.White,

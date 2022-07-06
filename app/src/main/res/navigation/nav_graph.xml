@@ -7,5 +7,13 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.drbrosdev.flix_bags.presentation.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_adDialogFragment"
+            app:destination="@id/adDialogFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/adDialogFragment"
+        android:name="com.drbrosdev.flix_bags.presentation.ad.AdDialogFragment"
+        android:label="AdDialogFragment" />
 </navigation>

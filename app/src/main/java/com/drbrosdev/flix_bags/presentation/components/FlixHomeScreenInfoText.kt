@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 fun FlixHomeScreenInfoText(
     modifier: Modifier = Modifier,
     headerText: String = "Instrukcije i Informacije",
-    text: String = "Tekst za instrukcije informacije i kontakt."
+    text: String = ""
 ) {
     Column(
         modifier = Modifier
@@ -29,7 +29,7 @@ fun FlixHomeScreenInfoText(
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = text,
-            style = MaterialTheme.typography.caption.copy(color = Color.Gray),
+            style = MaterialTheme.typography.h5.copy(color = Color.Gray),
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center
         )

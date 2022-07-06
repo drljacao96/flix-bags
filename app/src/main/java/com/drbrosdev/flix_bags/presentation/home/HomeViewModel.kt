@@ -32,7 +32,7 @@ class HomeViewModel(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), HomeUiState())
 
     fun submitCustomerBagCode(bagRawValue: String) {
-        if(customerBagCode.value.isNotBlank() and bagCode.value.isNotBlank()) {
+        if (customerBagCode.value.isNotBlank() and bagCode.value.isNotBlank()) {
             comparisonState.update { CodeComparisonState.IDLE }
             stateHandle[CUSTOMER_CODE] = ""
             stateHandle[BAG_CODE] = ""
@@ -44,15 +44,23 @@ class HomeViewModel(
             return
         }
 
-        if(bagCode.value.isBlank()) {
+        if (bagCode.value.isBlank()) {
             stateHandle[BAG_CODE] = bagRawValue
             compareBags(customerBagCode.value, bagCode.value)
             return
         }
     }
 
+    fun updateComparisonState(codeComparison: CodeComparisonState) {
+        comparisonState.update {
+            codeComparison
+        }
+        stateHandle[BAG_CODE] = ""
+        stateHandle[CUSTOMER_CODE] = ""
+    }
+
     private fun compareBags(firstCode: String, secondCode: String) {
-        if(firstCode.isBlank() or secondCode.isBlank())
+        if (firstCode.isBlank() or secondCode.isBlank())
             return
 
         viewModelScope.launch {
@@ -64,6 +72,32 @@ class HomeViewModel(
                 comparisonState.update { CodeComparisonState.FALSE }
             }
         }
+    }
+
+    fun setHeaderText(comparisonState: CodeComparisonState): String {
+        return when (comparisonState) {
+            CodeComparisonState.FALSE -> {
+                "QR KOD JE NEISPRAVAN"
+            }
+            CodeComparisonState.TRUE -> {
+                "QR KOD JE ISPRAVAN"
+            }
+            else -> computeScanInstructionText()
+        }
+    }
+
+    private fun computeScanInstructionText(): String {
+        return if (customerBagCode.value.isBlank() && bagCode.value.isBlank()) "Skeniraj KOD od PUTNIKA"
+        else if (customerBagCode.value.isNotBlank() && bagCode.value.isBlank()) "Skeniraj KOD sa TORBE"
+        else ""
+    }
+
+    fun setText(comparisonState: CodeComparisonState): String {
+        return if (comparisonState == CodeComparisonState.FALSE ||
+            comparisonState == CodeComparisonState.TRUE
+        )
+            "Ima li jos prtljaga u boksu?"
+        else ""
     }
 
     companion object {

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.unit.dp
@@ -21,6 +22,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.fragment.findNavController
 import com.drbrosdev.flix_bags.R
 import com.drbrosdev.flix_bags.presentation.components.*
 import com.drbrosdev.flix_bags.util.vibrate
@@ -93,7 +95,7 @@ class HomeFragment : Fragment() {
                             .fillMaxSize()
                             .systemBarsPadding()
                     ) {
-                        val (topBar, codeCard, submitButton, homeText, snackbar, snackbarSuccess) = createRefs()
+                        val (topBar, codeCard, submitButton, homeText, bottomBar) = createRefs()
                         val startCardGuideline = createGuidelineFromStart(0.12f)
                         val endCardGuideline = createGuidelineFromEnd(0.12f)
                         val bottomCardGuideline = createGuidelineFromTop(0.65f)
@@ -118,7 +120,7 @@ class HomeFragment : Fragment() {
                         }
 
                         FlixTopBar(
-                            text = "Flix Torbe",
+                            text = "Izdavanje Prtljaga",
                             modifier = Modifier
                                 .constrainAs(topBar) {
                                     top.linkTo(parent.top)
@@ -150,20 +152,44 @@ class HomeFragment : Fragment() {
                                 end.linkTo(endGuideline)
                                 bottom.linkTo(submitButton.top)
                                 width = Dimension.fillToConstraints
-                            }
+                            },
+                            headerText = viewModel.setHeaderText(state.comparisonState),
+                            text = viewModel.setText(state.comparisonState)
                         )
 
-                        FlixScanCodeButton(
-                            actionText = "Skenirajte kod",
-                            modifier = Modifier.constrainAs(submitButton) {
-                                bottom.linkTo(parent.bottom, 8.dp)
-                                start.linkTo(startGuideline)
-                                end.linkTo(endGuideline)
-                                width = Dimension.fillToConstraints
-                            },
-                            supportText = "Pritisnite dugme da skenirate QR kod!"
+                        if (state.comparisonState == CodeComparisonState.TRUE ||
+                            state.comparisonState == CodeComparisonState.FALSE
                         ) {
-                            scanCodeIntent.launch(scannerConfig)
+                            FlixBottomBar(
+                                modifier = Modifier
+                                    .constrainAs(bottomBar) {
+                                        bottom.linkTo(parent.bottom, 8.dp)
+                                        start.linkTo(startGuideline)
+                                        end.linkTo(endGuideline)
+                                        width = Dimension.fillToConstraints
+                                    },
+                                onFinish = {
+                                    val action =
+                                        HomeFragmentDirections.actionHomeFragmentToAdDialogFragment()
+                                    findNavController().navigate(action)
+                                }
+                            ) {
+                                viewModel.updateComparisonState(CodeComparisonState.IDLE)
+                            }
+                        } else {
+                            FlixScanCodeButton(
+                                actionText = "Skenirajte kod",
+                                modifier = Modifier
+                                    .constrainAs(submitButton) {
+                                        bottom.linkTo(parent.bottom, 8.dp)
+                                        start.linkTo(startGuideline)
+                                        end.linkTo(endGuideline)
+                                        width = Dimension.fillToConstraints
+                                    },
+                                supportText = "Pritisnite dugme da skenirate QR kod!"
+                            ) {
+                                scanCodeIntent.launch(scannerConfig)
+                            }
                         }
                     }
                 }

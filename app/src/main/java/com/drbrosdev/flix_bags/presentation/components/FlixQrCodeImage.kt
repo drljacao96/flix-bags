@@ -69,11 +69,5 @@ private fun CodeCardPlaceholder(
             modifier = Modifier.size(64.dp),
             colorFilter = ColorFilter.tint(color = MaterialTheme.colors.onSurface)
         )
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = "Pritisnite Skeniraj kod da vidite vas kod!",
-            color = MaterialTheme.colors.onSurface,
-            textAlign = TextAlign.Center
-        )
     }
 }

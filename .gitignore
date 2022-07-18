@@ -9,9 +9,12 @@
 /.idea/assetWizardSettings.xml
 /.idea/codeStyles
 /.idea/vcs.xml
+/.idea/misc.xml
 .DS_Store
 /build
 /captures
 .externalNativeBuild
 .cxx
 local.properties
+/.idea/codeStyles/
+/.idea/sonarlint/

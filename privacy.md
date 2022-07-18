@@ -1,5 +1,5 @@
 AskMe5-Bags does not collect any personal information.
-Should you have any questions or suggestions about my Privacy Policy, please do not hesitate to contact us [via email](maxknn@gmail.com).
+Should you have any questions or suggestions about my Privacy Policy, please do not hesitate to contact us via email maxknn@gmail.com.
 
 ## Permissions
 The app accesses one permission in order to operate.

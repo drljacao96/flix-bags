@@ -19,7 +19,6 @@ import compose.icons.feathericons.Info
 
 @Composable
 fun FlixQrCodeImage(
-    modifier: Modifier = Modifier,
     codeContent: String,
     useBottomText: Boolean = true,
     backgroundColor: Color = MaterialTheme.colors.secondary

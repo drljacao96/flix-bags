@@ -17,7 +17,6 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.fragment.app.DialogFragment
 import com.drbrosdev.flix_bags.presentation.components.FlixCloseApplicationButton
 import com.drbrosdev.flix_bags.presentation.components.FlixHomeScreenInfoText
-import com.drbrosdev.flix_bags.presentation.components.FlixScanCodeButton
 
 class AdDialogFragment : DialogFragment() {
 
@@ -43,9 +42,6 @@ class AdDialogFragment : DialogFragment() {
                     val activity = (LocalContext.current as? Activity)
 
                     val (adText, exitButton) = createRefs()
-                    val startCardGuideline = createGuidelineFromStart(0.12f)
-                    val endCardGuideline = createGuidelineFromEnd(0.12f)
-                    val bottomCardGuideline = createGuidelineFromTop(0.65f)
                     val endGuideline = createGuidelineFromEnd(0.05f)
                     val startGuideline = createGuidelineFromStart(0.05f)
 
@@ -70,8 +66,7 @@ class AdDialogFragment : DialogFragment() {
                                 start.linkTo(startGuideline)
                                 end.linkTo(endGuideline)
                                 width = Dimension.fillToConstraints
-                            },
-                        supportText = ""
+                            }
                     ) {
                         activity?.finish()
                     }

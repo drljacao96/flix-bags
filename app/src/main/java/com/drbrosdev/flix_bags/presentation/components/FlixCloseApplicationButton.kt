@@ -2,7 +2,6 @@ package com.drbrosdev.flix_bags.presentation.components
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.*
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -16,20 +15,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.drbrosdev.flix_bags.presentation.theme.FlixAmberDark
 import com.drbrosdev.flix_bags.presentation.theme.FlixButton
-import compose.icons.FeatherIcons
-import compose.icons.feathericons.Camera
 import java.util.*
 
 @Composable
 fun FlixCloseApplicationButton(
     modifier: Modifier = Modifier,
     actionText: String,
-    supportText: String,
     onClick: () -> Unit
 ) {
     val cornerShape = RoundedCornerShape(20.dp)

@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.unit.dp
@@ -43,9 +42,15 @@ class HomeFragment : Fragment() {
             is QRResult.QRSuccess -> {
                 viewModel.submitCustomerBagCode(it.content.rawValue)
             }
-            is QRResult.QRUserCanceled -> {}
-            is QRResult.QRMissingPermission -> {}
-            is QRResult.QRError -> {}
+            is QRResult.QRUserCanceled -> {
+                // Do nothing
+            }
+            is QRResult.QRMissingPermission -> {
+                // Do nothing
+            }
+            is QRResult.QRError -> {
+                // Do nothing
+            }
         }
     }
 

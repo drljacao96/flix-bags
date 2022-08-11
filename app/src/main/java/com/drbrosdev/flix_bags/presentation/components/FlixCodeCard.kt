@@ -44,14 +44,6 @@ fun FlixCodeCard(
                 .fillMaxHeight()
                 .padding(horizontal = 18.dp, vertical = 6.dp)
         ) {
-            Text(
-                text = "QR Kodovi".uppercase(Locale.ROOT),
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onSurface)
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-
             FlixQrCodeImage(
                 codeContent = firstCodeContent,
                 backgroundColor = surfaceBackground

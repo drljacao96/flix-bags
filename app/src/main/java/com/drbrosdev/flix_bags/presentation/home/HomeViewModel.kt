@@ -96,7 +96,7 @@ class HomeViewModel(
         return if (comparisonState == CodeComparisonState.FALSE ||
             comparisonState == CodeComparisonState.TRUE
         )
-            "Ima li jos prtljaga u boksu?"
+            "IMA LI JOS PRTLJAGA U BOKSU?"
         else ""
     }
 

@@ -1,7 +1,10 @@
 package com.drbrosdev.flix_bags.presentation.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -20,36 +23,31 @@ import compose.icons.feathericons.Info
 @Composable
 fun FlixQrCodeImage(
     codeContent: String,
-    useBottomText: Boolean = true,
     backgroundColor: Color = MaterialTheme.colors.secondary
 ) {
     val codeColor = MaterialTheme.colors.secondaryVariant
 
-    val isCodeContentEmpty = codeContent.isBlank()
     val codeImage = QRGenUtils.createCodeBitmap(
         codeContent = codeContent,
         backgroundColor = backgroundColor.toArgb(),
         codeColor = codeColor.toArgb()
     )
 
-    if (isCodeContentEmpty) {
-        CodeCardPlaceholder(modifier = Modifier.padding(24.dp))
-    } else {
-        if (useBottomText) {
-            Text(
-                text = "Kod: $codeContent",
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colors.onSurface
-            )
-        }
-        Image(
-            bitmap = codeImage.asImageBitmap(),
-            contentDescription = "null",
-            modifier = Modifier
-                .size(144.dp),
+    if (codeContent.isNotBlank()) {
+        Text(
+            text = "Kod: $codeContent",
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colors.onSurface
         )
     }
+    Image(
+        bitmap = codeImage.asImageBitmap(),
+        contentDescription = "null",
+        modifier = Modifier
+            .size(144.dp),
+    )
+
 }
 
 @Composable

@@ -21,13 +21,14 @@ fun FlixCodeCard(
     firstCodeContent: String,
     secondCodeContent: String,
     comparisonState: CodeComparisonState = CodeComparisonState.IDLE,
-    useBottomText: Boolean = true,
 ) {
-    val surfaceBackground by animateColorAsState(targetValue = when(comparisonState) {
-        CodeComparisonState.IDLE -> MaterialTheme.colors.secondary
-        CodeComparisonState.TRUE -> MaterialTheme.colors.onError
-        CodeComparisonState.FALSE -> MaterialTheme.colors.error
-    } )
+    val surfaceBackground by animateColorAsState(
+        targetValue = when (comparisonState) {
+            CodeComparisonState.IDLE -> MaterialTheme.colors.secondary
+            CodeComparisonState.TRUE -> MaterialTheme.colors.onError
+            CodeComparisonState.FALSE -> MaterialTheme.colors.error
+        }
+    )
 
     Surface(
         shape = RoundedCornerShape(20.dp),
@@ -53,13 +54,11 @@ fun FlixCodeCard(
 
             FlixQrCodeImage(
                 codeContent = firstCodeContent,
-                useBottomText = useBottomText,
                 backgroundColor = surfaceBackground
             )
 
             FlixQrCodeImage(
                 codeContent = secondCodeContent,
-                useBottomText = useBottomText,
                 backgroundColor = surfaceBackground
             )
         }

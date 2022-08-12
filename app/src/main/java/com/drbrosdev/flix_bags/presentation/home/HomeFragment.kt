@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -132,7 +132,7 @@ class HomeFragment : Fragment() {
                                     start.linkTo(parent.start)
                                     end.linkTo(parent.end)
                                 }
-                                .padding(horizontal = 12.dp)
+                                .fillMaxWidth()
                         )
 
                         FlixCodeCard(

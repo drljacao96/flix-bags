@@ -1,58 +1,52 @@
 package com.drbrosdev.flix_bags.presentation.components
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import compose.icons.FeatherIcons
-import compose.icons.feathericons.ArrowLeft
+import com.drbrosdev.flix_bags.R
+import com.drbrosdev.flix_bags.presentation.theme.FlixAmberLight
+import com.drbrosdev.flix_bags.presentation.theme.FlixButton
+import java.util.*
 
 @Composable
 fun FlixTopBar(
     modifier: Modifier = Modifier,
-    text: String,
-    onBack: (() -> Unit)? = null
+    text: String
 ) {
-    Column(
+
+    Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .then(modifier)
+            .background(color = MaterialTheme.colors.background)
+            .then(modifier),
+        contentAlignment = Alignment.CenterStart
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            onBack?.let {
-                IconButton(
-                    onClick = { it() },
-                    modifier = Modifier
-                        .size(48.dp)
-                        .padding(top = 6.dp)
-                ) {
-                    Icon(
-                        imageVector = FeatherIcons.ArrowLeft,
-                        contentDescription = null,
-                        modifier = Modifier.size(32.dp),
-                        tint = MaterialTheme.colors.onSurface
-                    )
-                }
-            }
-
+            Image(
+                painter = painterResource(id = R.drawable.ic_bags_foreground),
+                contentDescription = "",
+                modifier = Modifier.size(72.dp),
+            )
             Text(
-                text = text,
-                style = MaterialTheme.typography.h2,
-                fontWeight = FontWeight.SemiBold
+                text = text.uppercase(Locale.ROOT),
+                style = MaterialTheme.typography.body1.copy(
+                    color = MaterialTheme.colors.onSurface,
+                    fontWeight = FontWeight.ExtraBold
+                ),
             )
         }
-
     }
 }
 

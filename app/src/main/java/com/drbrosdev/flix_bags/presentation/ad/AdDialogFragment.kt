@@ -15,8 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.fragment.app.DialogFragment
+import com.drbrosdev.flix_bags.presentation.components.FlixAddDialogFragmentInfoText
 import com.drbrosdev.flix_bags.presentation.components.FlixCloseApplicationButton
-import com.drbrosdev.flix_bags.presentation.components.FlixHomeScreenInfoText
 
 class AdDialogFragment : DialogFragment() {
 
@@ -45,7 +45,7 @@ class AdDialogFragment : DialogFragment() {
                     val endGuideline = createGuidelineFromEnd(0.05f)
                     val startGuideline = createGuidelineFromStart(0.05f)
 
-                    FlixHomeScreenInfoText(
+                    FlixAddDialogFragmentInfoText(
                         modifier = Modifier.constrainAs(adText) {
                             top.linkTo(parent.top)
                             start.linkTo(startGuideline)
@@ -53,8 +53,8 @@ class AdDialogFragment : DialogFragment() {
                             bottom.linkTo(exitButton.top)
                             width = Dimension.fillToConstraints
                         },
-                        headerText = "Hvala vam sto koristite nase PRTLJAZNE KARTE kao i aplikaciju za kontrolu izdavanja prtljaga.\n" +
-                                "www.e-5.rs\n" + "+381 63 520 761",
+                        headerText = "Hvala vam sto koristite nase PRTLJAZNE KARTE kao i aplikaciju za kontrolu izdavanja prtljaga.\n" + "\n" + "\n" +
+                                "www.e-5.rs\n" + "\n" + "\n" + "\n" + "+381 63 520 761",
                         text = ""
                     )
 

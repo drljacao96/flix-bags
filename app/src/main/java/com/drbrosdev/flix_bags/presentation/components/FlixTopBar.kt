@@ -26,7 +26,7 @@ fun FlixTopBar(
 
     Box(
         modifier = Modifier
-            .background(color = FlixAmberLight)
+            .background(color = MaterialTheme.colors.background)
             .then(modifier),
         contentAlignment = Alignment.CenterStart
     ) {
@@ -42,7 +42,7 @@ fun FlixTopBar(
             Text(
                 text = text.uppercase(Locale.ROOT),
                 style = MaterialTheme.typography.body1.copy(
-                    color = Color.Black,
+                    color = MaterialTheme.colors.onSurface,
                     fontWeight = FontWeight.ExtraBold
                 ),
             )
